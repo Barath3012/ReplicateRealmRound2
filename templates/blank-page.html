@@ -22,10 +22,10 @@
     {% macro post(task) %}
     <tr onclick="window.location.href='/task/{{ task.id }}';">
       
-        <td>{{task.assigned_by }}</td>
-        <td>{{task.task_title}}</td>
-        <td>{{task.assigned_to }}</td>
-        <td><label class="badge badge-warning">In progress</label></td>
+        <td>{{task.uname }}</td>
+        <td>{{task.role}}</td>
+        <td><a class='btn btn-primary' href='/users/{{task.reg_no}}''>More info</a></td>
+       
       
     </tr>
     {% endmacro %}
@@ -59,14 +59,14 @@
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">NameXX</p>
+                  <p class="mb-1 text-black">{{uname}}</p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/logout">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -122,8 +122,8 @@
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">NameXX</span>
-                  <span class="text-secondary text-small">DesignationXX</span>
+                  <span class="font-weight-bold mb-2">{{uname}}</span>
+                  <span class="text-secondary text-small">{{role}}</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
               </a>
@@ -135,7 +135,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
+              <a class="nav-link" href="/members" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Members</span>
                 <i class="mdi mdi-account menu-icon"></i>
               </a>

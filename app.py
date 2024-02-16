@@ -23,6 +23,7 @@ class Users(db.Model):
     reg_no = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String(100),nullable=False)
     club = db.Column(db.String(100),nullable=False)
+    dept = db.Column(db.String(100),nullable=False)
 
 class Roles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +43,7 @@ class News(db.Model):
     title = db.Column(db.String(200),nullable=False)
     posted_by = db.Column(db.String(100),nullable=False)
     date = db.Column(db.DateTime,nullable=False)
+    register_by = db.Column(db.DateTime)
     contents = db.Column(db.String(4294000000),nullable=False)
     attachments = db.Column(db.String(4294000000))
 
@@ -66,9 +68,11 @@ def login():
             # add username and password to the db
 
             if (user and (password == user.password)):
+                session['reg_no'] = user.reg_no
                 session['uname'] = user.uname
                 session['role']=user.role
                 session["loggedin"]=True
+                session['club'] = user.club
                 return redirect(url_for("dash"))
             else:
                 #print(uname,user.uname,password,user.password)
@@ -84,7 +88,7 @@ def dash():
     if session.get("loggedin"):
         all_tasks = None
         #all_tasks = Posts.query.filter_by(assigned_by=session.get("uname"))
-        return render_template("blank-page.html",all_tasks=all_tasks)
+        return render_template("blank-page.html",all_tasks=all_tasks,uname=session['uname'],role=session['role'])
     else:
         return redirect(url_for("login"))
     
@@ -118,12 +122,19 @@ def task(id):
         return render_template("showTask.html",task=task)
     return "404 NO record found"
 
-@app.route("/addNews")
+@app.route("/addNews",methods=["GET","POST"])
 def addNews():
     if session.get("loggedin"):
-        all_tasks = None
-        #all_tasks = Posts.query.filter_by(assigned_by=session.get("uname"))
-        return render_template("addNews.html",all_tasks=all_tasks)
+        if request.method=="POST":
+            title = request.form.get("title")
+            cont = request.form.get("contents")
+            e_date = request.form.get("Event_date")
+            end_date = request.form.get("end_date")
+            att = request.form.get("attachments")
+            db.session.add(News(    title = title,    posted_by = session['reg_no'],    date = e_date,    register_by = end_date,    contents = cont,    attachments = att))
+
+
+        return render_template("addNews.html")
     else:
         return redirect(url_for("login"))
     
@@ -133,10 +144,24 @@ def register():
         uname=request.form.get("uname")
         regno=int(request.form.get("regno"))
         pwd=request.form.get("pwd")
-
+        role="Member"
+        club=request.form.get("club")
         if Users.query.filter_by(reg_no=regno) is not None:
-            return 
+            return "Account already exists for this Register Number."
+        
+        db.session.add(Users(role=role,uname=uname,password=pwd,club=club,reg_no=regno))
+        return "User registered successfully. Please <a href='/login'>login</a> now."
     return render_template("register.html")
+
+@app.route('/members')
+def members():
+
+    return render_template('members.html')
+
+@app.route('/users/<reg_no>')
+def user(reg_no):
+    
+    return render_template('user.html')
 
 @app.route("/logout",methods=['POST','GET'])
 def out():
