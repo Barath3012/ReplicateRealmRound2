@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Title</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="/static/img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="/static/css/mdb.min.css" />
+  </head>
+  <body>
+    <!-- Start your project here-->
+    <form method="Post">
+    <button name="but" value="view">View Task</button>
+    <button name="but" value="assign">Assign Task</button>
+    </form>
+      
+    
+
+  
+    
+    {% if all_tasks %}
+    <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Task Title</th>
+              <th>Assigned By</th>
+              <th>Assigned To</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for task in all_tasks %}
+              <tr>
+                  <td>{{ task.id }}</td>
+                  <td>{{ task.task_title }}</td>
+                  <td>{{ task.assigned_by }}</td>
+                  <td>{{ task.assigned_to }}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+
+  {% else %}
+  <form method="Post">
+    <br>
+    Task Title: <input id='get_task_title' name="task_title" > <br>
+    Assigned to: <input id='get_assigned_to' name="assigned_to" >
+    <button class="btn btn-dark" type="submit">Submit</button>
+  </form> 
+
+  {% endif %}
+
+
+    <div class="container">
+        
+    </div>
+    <!-- End your project here-->
+      
+    <!-- MDB -->
+    <script type="text/javascript" src="/static/js/mdb.umd.min.js"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+  </body>
+</html>
