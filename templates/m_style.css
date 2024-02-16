@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 100px auto; 
+    padding: 0;
+    width: 800px; 
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+.profile div small{
+    display: flex;
+    max-width: max-content
+    align-items: center;
+    justify-content: center;
+
+}
+.profile img {
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.description {
+    margin-bottom: 10px;
+}
+
+.images {
+    position: relative;
+}
+
+.images img {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.images img:first-child {
+    display: block;
+}
+
+.image-navigation {
+    margin-top: 10px;
+}
+
+.prev, .next {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    
+    
+}
+
+.prev {
+    float: left;
+    top: -70px;
+}
+
+.next {
+    float: right;
+}
