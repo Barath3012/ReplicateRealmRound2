@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title Here</title>
+    <title>MSEC Club Portal</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/static/img/mdb-favicon.ico" />
   </head>
   <body>
-    {% macro task_table_row(task) %}
+    {% macro post(task) %}
     <tr onclick="window.location.href='/task/{{ task.id }}';">
       
         <td>{{task.assigned_by }}</td>
@@ -129,56 +129,32 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/home">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="/dashboard">
+                <span class="menu-title">Home</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">OneXX</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                <span class="menu-title">Members</span>
+                <i class="mdi mdi-account menu-icon"></i>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">DropDownXX</a></li>
-                </ul>
-              </div>
+              
             </li>
             <li class="nav-item">
               <a class="nav-link" href="">
-                <span class="menu-title">TwoXX</span>
+                <span class="menu-title">My Account</span>
                 <i class="mdi mdi-contacts menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <span class="menu-title">ThreeXX</span>
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <span class="menu-title">FourXX</span>
-                <i class="mdi mdi-chart-bar menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <span class="menu-title">FiveXX</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
-              </a>
-            </li>
+            
+            
+            
             
           </ul>
         </nav>
         <!-- partial -->
-        <div class="main-panel">
-          <!-- <button value="but" href="/addTask" type="button" id="myModalTrigger" class="btn btn-primary btn-rounded  btn-fw btn-absolute" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#myModal">Assign Task</button> -->
-          
-          <button value="but" href="/addTask" type="button" id="myModalTrigger" class="btn btn-primary btn-rounded btn-fw btn-absolute 0" style="z-index: 1000 !important;">
-            Assign Task</button>
+        
           
           
           <!-- Modal -->
@@ -197,37 +173,57 @@
               </div>
             </div>
           </div>
-          <div class="content-wrapper">
+          <div class="content-wrapper row">
+<<<<<<<< HEAD:templates/members.html
             <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Assigned Tasks</h4>
+                    <p class="card-description"> View Assigned Tasks
+                    </p>
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Member Name</th>
+                          <th>Role</th>
+                          <th>More info</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% if all_tasks %}
+                          {% for task in all_tasks %}
+                            {{ task_table_row(task) }}
+                          {% endfor %}
+                        {% else %}
+                        <tr>
+                          <td colspan="3">No records to display.</td>
+                        </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+========
+            <div class="col-md-8 grid-margin stretch-card">
+              <div class="card" >
                 <div class="card-body">
-                  <h4 class="card-title">Assigned Tasks</h4>
-                  <p class="card-description"> View Assigned Tasks
-                  </p>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Assignee</th>
-                        <th>Task</th>
-                        <th>Assigned to</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% if all_tasks %}
-                        {% for task in all_tasks %}
-                          {{ task_table_row(task) }}
-                        {% endfor %}
-                      {% else %}
-                      <tr>
-                        <td colspan="4">No records to display.</td>
-                      </tr>
-                      {% endif %}
-                    </tbody>
-                  </table>
+                  <div class="row" style="flex-wrap: nowrap;">
+                    <h4 class="card-title">Your Feed</h4>
+                    
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card" >
+                
+                <div class="card-body">
+                  <div class="row">
+                   
+                    <h4 class="card-title">News and Upcoming Events</h4>
+                    
+>>>>>>>> 87ac5edbee3a217052904e20ab17c6110afd0f79:templates/blank-page.html
+                  </div>
+                </div>
+              </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:/static/partials/_footer.html -->
@@ -253,13 +249,6 @@
     <script src="/static/assets/js/off-canvas.js"></script>
     <script src="/static/assets/js/hoverable-collapse.js"></script>
     <script src="/static/assets/js/misc.js"></script>
-    <script>
-          $('#myModalTrigger').click(function () {
-            console.log("YES");
-            document.location.href = '/addTask'
-          $('#myModal').modal({show : true});
-          });
-    </script>
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

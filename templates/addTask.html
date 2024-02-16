@@ -216,48 +216,28 @@
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Assigned Tasks</h4>
-                  <p class="card-description"> View Assigned Tasks
+                  <h4 class="card-title">Feed</h4>
+                  
                   </p>
                   <!-- Large input -->
                   <div class="card">
                     <form method="post">
                     <div class="form-group">
-                      <label for="inputTitle">Task Title</label>
-                      <input type="text" id="inputTitle" name="task_title" class="form-control">
-                      
-                    </div>
-                    <!-- Small input -->
-                    <div class="form-group">
-                      <label for="inputAssignees">Task Assignees</label>
-                      <input type="text" id="inputAssignees" name="assigned_to" class="form-control" multiple>
-                      
-                    </div>
-                    <div class="form-group" data-mdb-datetimepicker-init data-mdb-input-init>
-                      <label for="inputStartDate" class="form-label">Task Start Date</label>
-                      <input id="inputStartDate" type="date" name="start_date" class="form-control ">                   
+                      <label for="inputTitle">Title</label>
+                      <input type="text" id="inputTitle" name="task_title" class="form-control" placeholder="Enter Title">
                       
                     </div>
                     <div class="form-group">
-                      <label for="inputDeadline">Task Deadline</label>
-                      <input id="inputDeadline" type="date" name="end_date" class="form-control">
-                     
+                      <label for="exampleTextarea1">Content</label>
+                      <textarea class="form-control" id="inputContents" name="contents" rows="4" placeholder="Type your content here..."></textarea>
                     </div>
 
                     <div class="md-form form-group form-lg">
-                      <label for="inputSMEx">Attachments</label>
+                      <label for="inputSMEx">Image Upload</label>
                       <input type="file" id="inputAttachments" name="attachments" class="form-control form-control-sm" multiple>
                       
                     </div>
-
-                    <div class="form-group">
-                      <label for="exampleTextarea1">Content</label>
-                      <textarea class="form-control" id="inputContents" name="contents" rows="4"></textarea>
-                    </div>
-
-                    
-
-                    <button class="btn btn-gradient-primary btn-rounded" type="submit">Add Task</button>
+                    <button class="btn btn-gradient-primary btn-rounded" type="submit">Post</button>
                     </form>
                   </div>
                 </div>
