@@ -23,7 +23,7 @@ body {
 }
 .profile div small{
     display: flex;
-    max-width: max-content
+    max-width: max-content;
     align-items: center;
     justify-content: center;
 
@@ -32,6 +32,7 @@ body {
     width: 45px;
     border-radius: 50%;
     margin-right: 10px;
+    margin-bottom: 20px;
 }
 .description {
     margin-bottom: 10px;
@@ -75,4 +76,39 @@ body {
 
 .next {
     float: right;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.event {
+    margin-bottom: 10px;
+}
+
+.register-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.register-btn:hover {
+    background-color: #0056b3;
 }
