@@ -18,23 +18,32 @@ db.init_app(app)
 app.secret_key = "??nIkBQAnE9bp3@qGKj3h6i#71!h/j"
 
 class Users(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
     role = db.Column(db.String(50),nullable=False)
-    uname = db.Column(db.String(100),unique = True , nullable = False)
+    uname = db.Column(db.String(100), nullable = False)
+    reg_no = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String(100),nullable=False)
+    club = db.Column(db.String(100),nullable=False)
 
-
-class Tasks(db.Model):
+class Roles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    task_title = db.Column(db.String(200),nullable=False)
-    assigned_by = db.Column(db.String(100),nullable=False)
-    assigned_to = db.Column(db.String(500),nullable=False)
-    start_date = db.Column(db.DateTime,nullable=False)
-    end_date = db.Column(db.DateTime,nullable=False)
+    name = db.Column(db.String(200),nullable=False, unique=True)
+    
+
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200),nullable=False)
+    posted_by = db.Column(db.String(100),nullable=False)
+    date = db.Column(db.DateTime,nullable=False)
     contents = db.Column(db.String(4294000000),nullable=False)
     attachments = db.Column(db.String(4294000000))
 
-
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200),nullable=False)
+    posted_by = db.Column(db.String(100),nullable=False)
+    date = db.Column(db.DateTime,nullable=False)
+    contents = db.Column(db.String(4294000000),nullable=False)
+    attachments = db.Column(db.String(4294000000))
 
 with app.app_context():
     db.create_all()
@@ -74,12 +83,12 @@ def login():
 def dash():
     if session.get("loggedin"):
         all_tasks = None
-        all_tasks = Tasks.query.filter_by(assigned_by=session.get("uname"))
+        #all_tasks = Posts.query.filter_by(assigned_by=session.get("uname"))
         return render_template("blank-page.html",all_tasks=all_tasks)
     else:
         return redirect(url_for("login"))
     
-@app.route("/addTask",methods=["GET","POST"])
+@app.route("/addPost",methods=["GET","POST"])
 def addTask():
     if request.method == "POST":
         task_title = request.form.get("task_title")
@@ -92,7 +101,7 @@ def addTask():
         
         if task_title:
             try:
-                new_task= Tasks(task_title=task_title,assigned_by=assigned_by,assigned_to=assigned_to,start_date=start_date,end_date=end_date,contents=contents,attachments=attachments)
+                new_task= Posts(task_title=task_title,assigned_by=assigned_by,assigned_to=assigned_to,start_date=start_date,end_date=end_date,contents=contents,attachments=attachments)
                 db.session.add(new_task)
                 db.session.commit()
                 print("Task added successfully")
@@ -102,14 +111,33 @@ def addTask():
                 print(e)
     return render_template("addTask.html")
 
-@app.route("/task/<id>")
+@app.route("/post/<id>")
 def task(id):
-    task = Tasks.query.filter_by(id=id).first()
+    post = Posts.query.filter_by(id=id).first()
     if task:
         return render_template("showTask.html",task=task)
     return "404 NO record found"
 
+@app.route("/addNews")
+def addNews():
+    if session.get("loggedin"):
+        all_tasks = None
+        #all_tasks = Posts.query.filter_by(assigned_by=session.get("uname"))
+        return render_template("addNews.html",all_tasks=all_tasks)
+    else:
+        return redirect(url_for("login"))
     
+@app.route("/register",methods=["GET","POST"])
+def register():
+    if request.method=="POST":
+        uname=request.form.get("uname")
+        regno=int(request.form.get("regno"))
+        pwd=request.form.get("pwd")
+
+        if Users.query.filter_by(reg_no=regno) is not None:
+            return 
+    return render_template("register.html")
+
 @app.route("/logout",methods=['POST','GET'])
 def out():
     session.clear()
