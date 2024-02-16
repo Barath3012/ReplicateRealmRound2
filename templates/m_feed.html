@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook-like Feed with Multiple Images</title>
+    <link rel="stylesheet" href="m_style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="images/Screenshot 2024-02-15 141833.png" alt="Profile Picture">
+            <div>
+            <p>DevDynasty</p>
+            <small>Replicating a webpage event involves recreating the functionality and user experience of a specific event 
+              or feature found on a webpage.This process typically requires understanding the event's behavior, coding the necessary HTML, CSS, and JavaScript components, and testing to 
+              ensure accuracy and responsiveness across different devices and browsers.</small>
+          </div>
+            
+        </div>
+        <div class="images">
+          <img src="images/img1.jpg" alt="Image 1" width="500px" height="500px">
+          <img src="images/ln.jpg" alt="Image 1" width="500px" height="500px">
+          <img src="images/img1.jpg" alt="Image 1" width="500px" height="500px">
+      </div>
+      <div class="image-navigation">
+          <button class="prev" onclick="prevImage()">&#10094;</button>
+          <button class="next" onclick="nextImage()">&#10095;</button>
+      </div>
+    </div>
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.images img');
+        const totalImages = images.length;
+
+        function showImage(index) {
+            images.forEach(img => img.style.display = 'none');
+            images[index].style.display = 'block';
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            showImage(currentImageIndex);
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            showImage(currentImageIndex);
+        }
+
+        showImage(currentImageIndex);
+    </script>
+</body>
+</html>
