@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Student Profile Info</title>
+
+    <meta name="author" content="Codeconvey" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+
+    <!--Only for demo purpose - no need to add.-->
+    <link rel="stylesheet" href="css/demo.css" />
+    
+	    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+		
+<div class="ScriptTop">
+    <div class="rt-container">
+        <div class="col-rt-4" id="float-right">
+  <center>
+	 
+ </center>
+    
+</div>
+
+<header class="ScriptHeader">
+    <div class="rt-container">
+    	<div class="col-rt-12">
+        	<div class="rt-heading">
+            	<h1>Student Profile Info</h1>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="rt-container">
+          <div class="col-rt-12">
+              <div class="Scriptcontent">
+              
+<!-- Student Profile -->
+<div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="icon.png" src="data:image/png;base64,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" alt="student dp">
+            <h3>Ishmam Ahasan Samin</h3>
+          </div>
+          <div class="card-body">
+            <p class="mb-0"><strong class="pr-1">Student ID:</strong>321000001</p>
+            <p class="mb-0"><strong class="pr-1">Dept</strong>4</p>
+            <p class="mb-0"><strong class="pr-1">Year</strong>3</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+              <tr>
+                <th width="30%">Register Number</th>
+                <td width="2%">:</td>
+                <td>125</td>
+              </tr>
+              <tr>
+                <th width="30%">Batch	</th>
+                <td width="2%">:</td>
+                <td>2020</td>
+              </tr>
+              <tr>
+                <th width="30%">Gender</th>
+                <td width="2%">:</td>
+                <td>Male</td>
+              </tr>
+              <tr>
+                <th width="30%">Religion</th>
+                <td width="2%">:</td>
+                <td>Group</td>
+              </tr>
+              <tr>
+                <th width="30%">blood</th>
+                <td width="2%">:</td>
+                <td>B+</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+          <div style="height: 26px"></div>
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
+          </div>
+          <div class="card-body pt-0">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+           
+    		</div>
+		</div>
+    </div>
+</section>
+	
+	
+	
+
+	
+	</body>
+</html>
