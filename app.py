@@ -86,29 +86,31 @@ def login():
 @app.route("/dashboard",methods=['POST','GET'])
 def dash():
     if session.get("loggedin"):
-        all_tasks = None
-        #all_tasks = Posts.query.filter_by(assigned_by=session.get("uname"))
-        return render_template("blank-page.html",all_tasks=all_tasks,uname=session['uname'],role=session['role'])
+        feeds=Posts.query.order_by(Posts.date.desc()).all()
+        news=News.query.order_by(News.date.desc()).all()
+        return render_template("blank-page.html",uname=session['uname'],role=session['role'],feeds=feeds,newss=news)
     else:
         return redirect(url_for("login"))
     
 @app.route("/addPost",methods=["GET","POST"])
 def addTask():
     if request.method == "POST":
-        task_title = request.form.get("task_title")
-        assigned_by=session.get("uname")
-        assigned_to = request.form.get("assigned_to")
-        start_date = datetime.strptime(request.form.get("start_date"),"%Y-%m-%d")
-        end_date = datetime.strptime(request.form.get("end_date"),"%Y-%m-%d")
+        title = request.form.get("task_title")
+        uploaded_by=session.get("uname")
+        uploaded_on = datetime.now()
         contents = request.form.get("contents")
         attachments = request.form.get("attachments")
         
-        if task_title:
+        if title:
             try:
-                new_task= Posts(task_title=task_title,assigned_by=assigned_by,assigned_to=assigned_to,start_date=start_date,end_date=end_date,contents=contents,attachments=attachments)
+                new_task= Posts(title=title,
+                                posted_by=uploaded_by,
+                                date=uploaded_on,
+                                contents=contents,
+                                attachments=attachments)
                 db.session.add(new_task)
                 db.session.commit()
-                print("Task added successfully")
+                print("Post added successfully")
                 return redirect("/dashboard")
             except Exception as e:
                 flash("Invalid input. Please try again.")
@@ -128,11 +130,11 @@ def addNews():
         if request.method=="POST":
             title = request.form.get("title")
             cont = request.form.get("contents")
-            e_date = request.form.get("Event_date")
-            end_date = request.form.get("end_date")
+            e_date = datetime.strptime(request.form.get("Event_date"),"%Y-%m-%d")
+            end_date = datetime.strptime(request.form.get("end_date"),"%Y-%m-%d")
             att = request.form.get("attachments")
             db.session.add(News(    title = title,    posted_by = session['reg_no'],    date = e_date,    register_by = end_date,    contents = cont,    attachments = att))
-
+            db.session.commit()
 
         return render_template("addNews.html")
     else:
@@ -146,22 +148,25 @@ def register():
         pwd=request.form.get("pwd")
         role="Member"
         club=request.form.get("club")
-        if Users.query.filter_by(reg_no=regno) is not None:
+        dept=request.form.get("dept")
+        print(Users.query.filter_by(reg_no=regno).first())
+        if Users.query.filter_by(reg_no=regno).first() is not None:
             return "Account already exists for this Register Number."
         
-        db.session.add(Users(role=role,uname=uname,password=pwd,club=club,reg_no=regno))
+        db.session.add(Users(role=role,uname=uname,password=pwd,club=club,reg_no=regno,dept=dept))
+        db.session.commit()
         return "User registered successfully. Please <a href='/login'>login</a> now."
     return render_template("register.html")
 
 @app.route('/members')
 def members():
-
-    return render_template('members.html')
+    members = Users.query.filter_by(club=session['club']).all()
+    return render_template('members.html',members=members)
 
 @app.route('/users/<reg_no>')
 def user(reg_no):
-    
-    return render_template('user.html')
+    u = Users.query.filter_by(reg_no=reg_no).first()
+    return render_template('user.html',user=u)
 
 @app.route("/logout",methods=['POST','GET'])
 def out():

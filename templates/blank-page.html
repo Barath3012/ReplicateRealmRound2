@@ -1,3 +1,5 @@
+{% from "m_feed.html" import feed with context %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +10,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="/static/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/static/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="m_style.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -19,12 +22,28 @@
     <link rel="shortcut icon" href="/static/img/mdb-favicon.ico" />
   </head>
   <body>
+
+    {% macro news(title,desc) %}
+    <div class="card news" style="max-height: 20%; border: solid #000; border-width: 1px; margin-top: 5px;">
+      <div class="card-body" style="margin-top: 0px; padding:0; padding-left: 10px; padding-top: 10px;">
+        <div class="card-title" >
+          {{title}}
+        </div>
+        <div class="card-description">
+          {{desc}}
+        </div>
+        
+      </div>
+      <hr>
+    </div>
+    {% endmacro %}
+    
     {% macro post(task) %}
-    <tr onclick="window.location.href='/task/{{ task.id }}';">
+    <tr>
       
         <td>{{task.uname }}</td>
         <td>{{task.role}}</td>
-        <td><a class='btn btn-primary' href='/users/{{task.reg_no}}''>More info</a></td>
+        <td><a class='btn btn-primary' href='/users/{{task.reg_no}}'></a></td>
        
       
     </tr>
@@ -181,6 +200,11 @@
                     <h4 class="card-title">Your Feed</h4>
                     
                   </div>
+                  <div>
+                    {% for f in feeds%}
+                        {{feed(f.title,f.contents,f.attachments)}}
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>
@@ -193,6 +217,10 @@
                     <h4 class="card-title">News and Upcoming Events</h4>
                     
                   </div>
+
+                    {% for n in newss %}
+                        {{ news(n.title,n.contents) }}
+                    {% endfor %}
                 </div>
               </div>
             </div>
@@ -221,6 +249,28 @@
     <script src="/static/assets/js/off-canvas.js"></script>
     <script src="/static/assets/js/hoverable-collapse.js"></script>
     <script src="/static/assets/js/misc.js"></script>
+    <script>
+      let currentImageIndex = 0;
+      const images = document.querySelectorAll('.images img');
+      const totalImages = images.length;
+
+      function showImage(index) {
+          images.forEach(img => img.style.display = 'none');
+          images[index].style.display = 'block';
+      }
+
+      function prevImage() {
+          currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+          showImage(currentImageIndex);
+      }
+
+      function nextImage() {
+          currentImageIndex = (currentImageIndex + 1) % totalImages;
+          showImage(currentImageIndex);
+      }
+
+      showImage(currentImageIndex);
+  </script>
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

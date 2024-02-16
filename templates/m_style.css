@@ -18,12 +18,12 @@ body {
 
 .profile {
     padding: 20px;
-    display: flex;
+    display: flexbox;
     align-items: center;
 }
 .profile div small{
     display: flex;
-    max-width: max-content
+    max-width: max-content;
     align-items: center;
     justify-content: center;
 
@@ -76,3 +76,23 @@ body {
 .next {
     float: right;
 }
+
+hr {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 8px auto;
+    height: 0;
+    width: 100%;
+    max-height: 0;
+    font-size: 1px;
+    line-height: 0;
+    clear: both;
+    border: none;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #ffffff;
+ }
+
+ .news{
+    max-height: 25%;
+ }

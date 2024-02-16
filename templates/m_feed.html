@@ -7,27 +7,28 @@
     <link rel="stylesheet" href="m_style.css">
 </head>
 <body>
+    {% macro feed(title,content,imgs) %}
     <div class="container">
+        
         <div class="profile">
-            <img src="images/Screenshot 2024-02-15 141833.png" alt="Profile Picture">
-            <div>
-            <p>DevDynasty</p>
-            <small>Replicating a webpage event involves recreating the functionality and user experience of a specific event 
-              or feature found on a webpage.This process typically requires understanding the event's behavior, coding the necessary HTML, CSS, and JavaScript components, and testing to 
-              ensure accuracy and responsiveness across different devices and browsers.</small>
-          </div>
+            <img src="/static/assets/images/Default_pfp.svg.png" alt="Profile Picture" height="50px">
             
+            <p>{{title}}</p>
+
         </div>
+        <small>{{ content }}</small>
         <div class="images">
-          <img src="images/img1.jpg" alt="Image 1" width="500px" height="500px">
-          <img src="images/ln.jpg" alt="Image 1" width="500px" height="500px">
-          <img src="images/img1.jpg" alt="Image 1" width="500px" height="500px">
+            {% for img in imgs %}
+                <img src="{{ img }}" alt="Image 1" max-width="500px" max-height="500px">
+            {% endfor %}
       </div>
       <div class="image-navigation">
           <button class="prev" onclick="prevImage()">&#10094;</button>
           <button class="next" onclick="nextImage()">&#10095;</button>
       </div>
     </div>
+    <hr>
+    {% endmacro %}
     <script>
         let currentImageIndex = 0;
         const images = document.querySelectorAll('.images img');
